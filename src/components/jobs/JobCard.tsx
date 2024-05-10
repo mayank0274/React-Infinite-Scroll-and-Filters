@@ -5,6 +5,7 @@ import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Job } from "../../redux/slices/jobs/jobSlice";
+import { REFERAL_AVATAR } from "../../constants/constants";
 
 type Props = {
   job: Job;
@@ -30,30 +31,26 @@ const StyledBadge = styled(Badge)(() => ({
 
 const ButtonAvatar = () => {
   return (
-    <Stack direction="row" spacing={0.5} position={"relative"}>
-      <div className="avatar-group-overlay"></div>
-      <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        variant="dot"
-      >
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 24, height: 24 }}
-        />
-      </StyledBadge>
-      <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        variant="dot"
-      >
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 24, height: 24 }}
-        />
-      </StyledBadge>
+    <Stack direction="row" spacing={1.2}>
+      {REFERAL_AVATAR.map(({ name, avatar_url }) => {
+        return (
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant="dot"
+            style={{
+              position: "relative",
+            }}
+          >
+            <Avatar
+              alt={name}
+              src={avatar_url}
+              sx={{ width: 24, height: 24 }}
+            />
+            <div className="avatar-group-overlay"></div>
+          </StyledBadge>
+        );
+      })}
     </Stack>
   );
 };
@@ -103,7 +100,7 @@ export const JobCard: React.FC<Props> = ({ job }) => {
           </Link>
         </Box>
 
-        <Box className="m">
+        <Box className="card-footer">
           <Box className="job-experience">
             <p className="experience-title">Minimum Experience</p>
             <p className="experience-value">

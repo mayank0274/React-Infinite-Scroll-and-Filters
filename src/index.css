@@ -43,7 +43,7 @@ html {
   transform: scale(1.03);
 }
 
-#time-posted {
+#job-card #time-posted {
   width: max-content;
   border: 0.2rem solid var(--borderColor);
   border-top-right-radius: 1rem;
@@ -58,37 +58,37 @@ html {
   padding: 0.6rem;
 }
 
-#company-logo {
+#job-card #company-logo {
   width: 8%;
 }
 
-.company-title {
+#job-card .company-title {
   font-size: 1.4rem;
   color: var(--subText);
   font-weight: bold;
 }
 
-.position {
+#job-card .position {
   font-size: 1.5rem;
   color: var(--primaryText);
 }
 
-.location {
+#job-card .location {
   font-size: 1.3rem;
   color: var(--primaryText);
 }
 
-.about-company-heading {
+#job-card .about-company-heading {
   font-size: 1.6rem;
   color: var(--primaryText);
 }
 
-.company-description {
+#job-card .company-description {
   font-size: 1.3rem;
   color: var(--primaryText);
 }
 
-.read-more-overlay {
+#job-card .read-more-overlay {
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -108,21 +108,21 @@ html {
   text-align: center;
 }
 
-.m {
+#job-card .card-footer {
   width: 100%;
   background-color: #ffffff;
 }
 
-.job-experience {
+#job-card .job-experience {
   align-self: flex-start;
 }
 
-.job-experience .experience-title {
+#job-card .job-experience .experience-title {
   font-size: 1.3rem;
   color: var(--subText);
 }
 
-.job-experience .experience-value {
+#job-card .job-experience .experience-value {
   font-size: 1.2rem;
   color: var(--primaryText);
 }
@@ -135,7 +135,7 @@ html {
   margin-top: 1rem;
 }
 
-.btn {
+#job-card .btn {
   width: 100%;
   padding: 1rem;
   font-size: 1.5rem;
@@ -143,13 +143,13 @@ html {
   cursor: pointer;
 }
 
-.btn-primary {
+#job-card .btn-primary {
   background-color: var(--primaryButtonBg);
   color: var(--primaryText);
   border: 1px solid var(--primaryButtonBg);
 }
 
-.btn-secondary {
+#job-card .btn-secondary {
   background-color: var(--secondaryButtonBg);
   color: var(--primaryBg);
   border: 1px solid var(--secondaryButtonBg);
@@ -168,8 +168,25 @@ html {
   right: 0;
   top: 0;
   bottom: 0;
-  border-radius: 0.5rem;
+  border-radius: 50%;
+  padding: 1.4rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(3px);
   z-index: 100;
+}
+
+/* errors */
+.retry-btn {
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.no-data-img {
+  width: 35%;
+  display: block;
+  margin: 10px auto;
 }
