@@ -1,68 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins&display=swap");
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primaryBg: #ffffff;
+  --secondaryBg: #d9d9d9;
+  --borderColor: #d9d9d9;
+  --primaryText: #000000;
+  --highlight: #95f5dc;
+  --subText: #c1b8b8;
+  --primaryButtonBg: #55efc4;
+  --secondaryButtonBg: #4943da;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  background-color: var(--primaryBg);
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+}
+
+/* job card */
+
+#job-card {
+  border: 0.2rem solid var(--borderColor);
+  border-radius: 1.4rem;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 22%;
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.1s ease-in-out;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#job-card:hover {
+  transform: scale(1.03);
+}
+
+#time-posted {
+  width: max-content;
+  border: 0.2rem solid var(--borderColor);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  color: var(--primaryText);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+}
+
+#company-logo {
+  width: 8%;
+}
+
+.company-title {
+  font-size: 1.4rem;
+  color: var(--subText);
+  font-weight: bold;
+}
+
+.position {
+  font-size: 1.5rem;
+  color: var(--primaryText);
+}
+
+.location {
+  font-size: 1.3rem;
+  color: var(--primaryText);
+}
+
+.about-company-heading {
+  font-size: 1.6rem;
+  color: var(--primaryText);
+}
+
+.company-description {
+  font-size: 1.3rem;
+  color: var(--primaryText);
+}
+
+.read-more-overlay {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1.4rem;
+  padding: 1rem;
+}
+
+#job-card .read-more {
+  width: 100%;
+  height: 3rem;
+  background-image: linear-gradient(to top, #ffffff, #ffffffcb);
+  text-align: center;
+}
+
+.m {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.job-experience {
+  align-self: flex-start;
+}
+
+.job-experience .experience-title {
+  font-size: 1.3rem;
+  color: var(--subText);
+}
+
+.job-experience .experience-value {
+  font-size: 1.2rem;
+  color: var(--primaryText);
+}
+
+#job-card .button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 98%;
+  margin-top: 1rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primaryButtonBg);
+  color: var(--primaryText);
+  border: 1px solid var(--primaryButtonBg);
+}
+
+.btn-secondary {
+  background-color: var(--secondaryButtonBg);
+  color: var(--primaryBg);
+  border: 1px solid var(--secondaryButtonBg);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-group-overlay {
+  position: absolute;
+  width: 100%;
+  padding: 1.5rem;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  z-index: 100;
 }
