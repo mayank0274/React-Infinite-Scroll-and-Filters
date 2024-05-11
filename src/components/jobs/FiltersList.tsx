@@ -31,8 +31,14 @@ export const FiltersList: React.FC = () => {
     <Box
       display={"flex"}
       flexWrap={"wrap"}
-      justifyContent={"space-evenly"}
-      width={"100%"}
+      gap={"20px"}
+      width={"95%"}
+      sx={{
+        gap: { xs: "2px", sm: "5px", md: "10px", lg: "15px" },
+        justifyContent: { xs: "center", sm: "center", md: "normal" },
+        flexDirection: { xs: "column", sm: "row" },
+        width: { xs: "70%", sm: "95%" },
+      }}
     >
       <Filters
         filterOptions={ROLES_OPTIONS}
@@ -70,7 +76,7 @@ export const FiltersList: React.FC = () => {
         loadData={loadData}
       />
       <Filters
-        filterOptions={[]}
+        filterOptions={["Search compnay name to filter data"]}
         label={"Enter company name"}
         filterData={filters[Company_Name]}
         filterKey={Company_Name}

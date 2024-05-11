@@ -69,7 +69,18 @@ export const JobCard: React.FC<Props> = ({ job }) => {
     companyName,
   } = job;
   return (
-    <Box id="job-card" padding={"10px"}>
+    <Box
+      id="job-card"
+      padding={"10px"}
+      sx={{
+        width: {
+          xs: "100%",
+          sm: "45%",
+          md: "30%",
+          lg: "22.5%",
+        },
+      }}
+    >
       <Box id="time-posted">
         <ClockIcon width="16px" height="16px" color="#ff7724" />
         <p>Posted 10 days ago</p>

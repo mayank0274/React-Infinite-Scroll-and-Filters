@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import { JobCard } from "./JobCard";
 import { Job } from "../../redux/slices/jobs/jobSlice";
 import { shallowEqual, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { useGetJobsMutation } from "../../redux/slices/jobs/jobsApi";
 import NoDataImg from "../../assets/no-data.png";
 import { InfiniteScroll } from "../utlis/InfiniteScroll";
 import { FiltersList } from "./FiltersList";
+import { CloseIcon } from "../../icons/CloseIcon";
 
 export interface IBody {
   limit: number;
@@ -43,6 +44,10 @@ export const JobSection: React.FC = () => {
     loadData({ limit, offset: 0 });
   }, []);
 
+  const [openFilterModal, setOpenFilterModal] = React.useState(false);
+  const handleOpenFilterMenu = () => setOpenFilterModal(true);
+  const handleCloseFilterMenu = () => setOpenFilterModal(false);
+
   return (
     <Box
       display={"flex"}
@@ -52,7 +57,45 @@ export const JobSection: React.FC = () => {
       gap={"20px"}
       width={"90%"}
     >
-      <FiltersList />
+      <Box
+        alignSelf={"flex-start"}
+        sx={{ display: { xs: "block", sm: "none" } }}
+      >
+        {" "}
+        <button className="open-filters btn" onClick={handleOpenFilterMenu}>
+          Open Filters
+        </button>
+      </Box>
+      <Box width={"95%"}>
+        <Box
+          sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}
+          width={"100%"}
+        >
+          <FiltersList />
+        </Box>
+        <div>
+          <Modal open={openFilterModal} onClose={handleCloseFilterMenu}>
+            <Box
+              bgcolor={"#fff"}
+              height={"100%"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              padding={"20px"}
+            >
+              <CloseIcon
+                width="30px"
+                height="30px"
+                handlerFn={() => {
+                  handleCloseFilterMenu();
+                }}
+                className="modal-close"
+              />
+              <FiltersList />
+            </Box>
+          </Modal>
+        </div>
+      </Box>
       <InfiniteScroll
         limit={limit}
         hasMore={jobs?.length <= totalCount}
@@ -67,9 +110,6 @@ export const JobSection: React.FC = () => {
           flexWrap={"wrap"}
           gap={"27px"}
           width={"100%"}
-          sx={{
-            flexDirection: { xs: "column", sm: "row" },
-          }}
         >
           {jobs.length === 0 && !isLoading && !isError && <NoData />}
           {jobs &&

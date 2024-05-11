@@ -3,7 +3,6 @@ import { CloseIcon } from "../../icons/CloseIcon";
 import { DropDownIcon } from "../../icons/DropDownIcon";
 import { Box } from "@mui/material";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { RootState } from "../../redux/store";
 import {
   filterKeys,
   setFilters,
@@ -64,6 +63,10 @@ export const Filters: React.FC<Props> = ({
 
   // add selection
   const addSelection = (value: string): void => {
+    if (selectedValues.includes(value.toLowerCase())) {
+      return;
+    }
+
     if (allowMultipleValues) {
       setSelectedvalues([...selectedValues, value.toLowerCase()]);
     } else {
@@ -155,7 +158,6 @@ export const Filters: React.FC<Props> = ({
                 }
           }
         />
-
         <Box
           display={"flex"}
           alignItems={"center"}
@@ -195,7 +197,9 @@ export const Filters: React.FC<Props> = ({
             if (!selectedValues.includes(value)) {
               return (
                 <p
-                  className="filter-options"
+                  className={`filter-options ${
+                    filterKeys.Company_Name === filterKey && "disabled"
+                  }`}
                   key={value}
                   onClick={() => {
                     addSelection(value);
