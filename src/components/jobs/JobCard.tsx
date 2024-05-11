@@ -41,6 +41,7 @@ const ButtonAvatar = () => {
             style={{
               position: "relative",
             }}
+            key={name}
           >
             <Avatar
               alt={name}

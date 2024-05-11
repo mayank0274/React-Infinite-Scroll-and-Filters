@@ -7,6 +7,7 @@ import { RootState } from "../../redux/store";
 import { useGetJobsMutation } from "../../redux/slices/jobs/jobsApi";
 import NoDataImg from "../../assets/no-data.png";
 import { InfiniteScroll } from "../utlis/InfiniteScroll";
+import { FiltersList } from "./FiltersList";
 
 export interface IBody {
   limit: number;
@@ -51,6 +52,7 @@ export const JobSection: React.FC = () => {
       gap={"20px"}
       width={"90%"}
     >
+      <FiltersList />
       <InfiniteScroll
         limit={limit}
         hasMore={jobs?.length <= totalCount}

@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { setJobsData, setOffset } from "../../redux/slices/jobs/jobSlice";
+import {
+  setFilteredData,
+  setJobsData,
+  setOffset,
+} from "../../redux/slices/jobs/jobSlice";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { IBody } from "../jobs/JobSection";
@@ -35,10 +39,19 @@ export const InfiniteScroll: React.FC<Props> = ({
   const loaderRef = useRef<HTMLDivElement>(null);
   const [isMore, setIsMore] = useState<boolean>(hasMore);
   const dispatch = useDispatch();
-  const { offset, prevData, jobs } = useSelector(
+  const { offset, prevData, jobs, filters } = useSelector(
     (state: RootState) => state.jobs,
     shallowEqual
   );
+  const { Experience, Employee_Count, Location, Roles, Min_Pay, Company_Name } =
+    filters;
+  const isFilterApplied =
+    Experience?.length ||
+    Employee_Count?.length ||
+    Location?.length ||
+    Roles?.length ||
+    Min_Pay.length ||
+    Company_Name.length;
 
   // fetch more data fn on scroll
   const getJobsData = useCallback(async () => {
@@ -49,12 +62,20 @@ export const InfiniteScroll: React.FC<Props> = ({
     const job: any = await loadData(body);
 
     if (job.data) {
-      dispatch(
-        setJobsData({
-          jobs: [...prevData, ...job.data.jdList],
-          totalCount: job.data.totalCount,
-        })
-      );
+      if (isFilterApplied) {
+        dispatch(
+          setFilteredData({
+            jobs: [...prevData, ...job.data.jdList],
+          })
+        );
+      } else {
+        dispatch(
+          setJobsData({
+            jobs: [...prevData, ...job.data.jdList],
+            totalCount: job.data.totalCount,
+          })
+        );
+      }
     }
 
     dispatch(
@@ -62,10 +83,15 @@ export const InfiniteScroll: React.FC<Props> = ({
         offset: offset + 8,
       })
     );
-  }, [offset]);
+  }, [offset, filters]);
 
   // add intersection observer on loader
   useEffect(() => {
+    if (offset == 0) {
+      getJobsData();
+      return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
       const target = entries[0];
 
@@ -91,6 +117,14 @@ export const InfiniteScroll: React.FC<Props> = ({
       setIsMore(false);
     }
   }, [isError]);
+
+  // if no data found acc. to applied filter
+  useEffect(() => {
+    // offset > 48 means  => contninuous 6 req but not data found
+    if (jobs.length === 0 && offset > 48 && isFilterApplied) {
+      setIsMore(false);
+    }
+  }, [offset]);
 
   return (
     <div
