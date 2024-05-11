@@ -1,7 +1,6 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { useGetJobsMutation } from "../../redux/slices/jobs/jobsApi";
 import {
   EXPERIENCE_OPTIONS,
   LOCATION_OPTIONS,
@@ -9,23 +8,15 @@ import {
   ROLES_OPTIONS,
 } from "../../constants/constants";
 import { Box } from "@mui/material";
-import { IBody } from "./JobSection";
 import { Filters } from "./Filters";
 import { filterKeys } from "../../redux/slices/jobs/jobSlice";
 
 export const FiltersList: React.FC = () => {
-  const [getJobs, {}] = useGetJobsMutation();
   const { filters } = useSelector(
     (state: RootState) => state.jobs,
     shallowEqual
   );
   const { Experience, Location, Roles, Min_Pay, Company_Name } = filterKeys;
-
-  // fetch more data on scroll
-  const loadData = async (body: IBody) => {
-    const jobData = await getJobs(JSON.stringify(body));
-    return jobData;
-  };
 
   return (
     <Box
@@ -45,7 +36,6 @@ export const FiltersList: React.FC = () => {
         label={"Roles"}
         filterData={filters[Roles]}
         filterKey={Roles}
-        loadData={loadData}
         key={"roles"}
         allowMultipleValues={true}
       />
@@ -54,7 +44,6 @@ export const FiltersList: React.FC = () => {
         label={"Min. Base Pay"}
         filterData={filters[Min_Pay]}
         filterKey={Min_Pay}
-        loadData={loadData}
         allowMultipleValues={false}
         key={"base_pay"}
       />
@@ -65,7 +54,6 @@ export const FiltersList: React.FC = () => {
         filterData={filters[Experience]}
         filterKey={Experience}
         key={"experience"}
-        loadData={loadData}
       />
       <Filters
         filterOptions={LOCATION_OPTIONS}
@@ -73,7 +61,6 @@ export const FiltersList: React.FC = () => {
         filterData={filters[Location]}
         filterKey={Location}
         key={"location"}
-        loadData={loadData}
       />
       <Filters
         filterOptions={["Search compnay name to filter data"]}
@@ -81,7 +68,6 @@ export const FiltersList: React.FC = () => {
         filterData={filters[Company_Name]}
         filterKey={Company_Name}
         key={"company_name"}
-        loadData={loadData}
       />
     </Box>
   );

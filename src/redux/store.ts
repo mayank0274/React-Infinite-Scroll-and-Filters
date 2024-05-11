@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Tuple } from "@reduxjs/toolkit";
 import jobSlice from "./slices/jobs/jobSlice";
 import api from "./api";
 
@@ -8,7 +8,7 @@ export const store = configureStore({
     jobs: jobSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return [...getDefaultMiddleware(), api.middleware];
+    return new Tuple(...getDefaultMiddleware(), api.middleware);
   },
 });
 

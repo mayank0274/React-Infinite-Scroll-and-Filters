@@ -8,9 +8,6 @@ import {
   setFilters,
   setOffset,
 } from "../../redux/slices/jobs/jobSlice";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
-import { SerializedError } from "@reduxjs/toolkit/react";
-import { IBody } from "./JobSection";
 import { debounce } from "../../utlis/debounce";
 
 interface Props {
@@ -19,14 +16,6 @@ interface Props {
   allowMultipleValues?: boolean;
   filterData?: string[];
   filterKey: string;
-  loadData: (body: IBody) => Promise<
-    | {
-        data: any;
-      }
-    | {
-        error: FetchBaseQueryError | SerializedError;
-      }
-  >;
 }
 
 export const Filters: React.FC<Props> = ({
@@ -34,7 +23,6 @@ export const Filters: React.FC<Props> = ({
   filterOptions,
   allowMultipleValues,
   filterKey,
-  loadData,
 }) => {
   const [isFocued, setIsFocused] = useState(false);
   const [options, setOptions] = useState<string[]>(filterOptions);

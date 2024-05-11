@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import { JobCard } from "./JobCard";
 import { Job } from "../../redux/slices/jobs/jobSlice";
 import { shallowEqual, useSelector } from "react-redux";
